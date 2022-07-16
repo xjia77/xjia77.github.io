@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>Douban Movie Scraper</title>
+    <url>/2022/01/12/Douban-Movie-Scraper/</url>
+    <content><![CDATA[<p>Python3-based Douban Movie/Douban Book Scarpy crawler for cover downloading + data crawling + review entry.</p>
+<p>The purpose of maintaining this project is to share some of my practice in the process of using Scrapy, the project covers about 80% of my knowledge of Scrapy, I hope to help friends who are learning Scrapy, please note that the current version of the project is Scrapy 2.5.0.</p>
+<h3 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h3><p>Project contains douban_scrapyd douban_db douban_adminer three containers.</p>
+<p>The douban_scrapyd container is based on <a href="https://pythonspeed.com/articles/base-image-python-docker-images/">python:3.9-slim-buster</a>, the default installed Python3 libraries are scrapy scrapyd pymysql pillow arrow, default mapping port 6800:6800 to facilitate user access to scrapyd management interface via host IP:6800, login required parameters, username:scrapyd password:public.</p>
+<p>The douban_db container is based on mysql:8, root password is public, and the default initialization is to import the docker/mysql/douban.sql file to the douban database.</p>
+<p>douban_adminer container is based on adminer:4, default mapping port 8080:8080 to facilitate users to access the database management interface through the host IP:8080, login required parameters, server:mysql username:root password:public.</p>
+<h3 id="Project-SQL"><a href="#Project-SQL" class="headerlink" title="Project SQL"></a>Project SQL</h3><p>The path to the SQL file used by the project is docker/mysql/douban.sql.</p>
+<h3 id="Collection-Process"><a href="#Collection-Process" class="headerlink" title="Collection Process"></a>Collection Process</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">First collect Subject ID --&gt; <span class="keyword">then</span> crawl the detail page by Subject ID to collect data --&gt; finally collect comments by Subject ID</span><br></pre></td></tr></table></figure>
+
+<h3 id="method"><a href="#method" class="headerlink" title="method"></a>method</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://github.com/xjia77/ScrapyDouban.git</span><br><span class="line"><span class="comment"># Build and run containers</span></span><br><span class="line">$ <span class="built_in">cd</span> ./ScrapyDouban/docker</span><br><span class="line">$ sudo docker-compose up --build -d</span><br><span class="line"><span class="comment"># enter douban_scrapyd container</span></span><br><span class="line">$ sudo docker <span class="built_in">exec</span> -it douban_scrapyd bash</span><br><span class="line"><span class="comment"># enter scrapy content</span></span><br><span class="line">$ <span class="built_in">cd</span> /srv/ScrapyDouban/scrapy</span><br><span class="line">$ scrapy list</span><br><span class="line"><span class="comment"># Grabbing movie data</span></span><br><span class="line">$ scrapy crawl movie_subject <span class="comment"># collect movie Subject ID</span></span><br><span class="line">$ scrapy crawl movie_meta <span class="comment"># collect movie data</span></span><br><span class="line">$ scrapy crawl movie_comment <span class="comment"># collect movie comment</span></span><br><span class="line"><span class="comment"># Grabbing book data</span></span><br><span class="line">$ scrapy crawl book_subject <span class="comment"># collect book Subject ID</span></span><br><span class="line">$ scrapy crawl book_meta <span class="comment"># collect book data</span></span><br><span class="line">$ scrapy crawl book_comment <span class="comment"># collect book comment</span></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="Proxy-IP"><a href="#Proxy-IP" class="headerlink" title="Proxy IP"></a>Proxy IP</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Due to douban<span class="string">&#x27;s anti-crawler mechanism, the only way to bypass it now is through a proxy IP. ProxyMiddleware middleware is not enabled in the default settings.py. If you really need to use Douban&#x27;</span>s data to <span class="keyword">do</span> some research, you can go rent a paid proxy pool.</span><br></pre></td></tr></table></figure>
+
+<h3 id="image-download"><a href="#image-download" class="headerlink" title="image download"></a>image download</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">douban.pipelines.CoverPipeline processes the cover download logic by filtering spider.name, and the save path of the downloaded image files is the /srv/ScrapyDouban/storage directory of the douban_scrapy container.</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>Python</tag>
+        <tag>Scarpy</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2022/01/10/Hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+      <tags>
+        <tag>Life</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Real-time chat WebApp</title>
+    <url>/2022/01/11/Real-time-chat-WebApp/</url>
+    <content><![CDATA[<p>React16，React-Router4，Redux，Node.js，MongoDB，Antd-Mobile<br>The project is divided into four modules: user list, message list, personal center, login and registration; the backend is Node.js, the database is MongoDB, with the front-end react technology stack to achieve front-end and back-end intermodulation. Users are divided into two roles: student and teacher. User registration can choose the role, after successful registration need to improve the information (students: avatar, grade, personal profile; teachers: avatar, teaching subjects, personal profile). After perfecting the information, students will jump to the student list page and teachers will jump to the teacher list page. And you can click on each other to chat with them. If there are unread messages, the number of unread messages is displayed on the message list in the bottom navigation. Clicking on an unread message reduces the number of unread messages accordingly. Focus on the use of Redux to store user information, user list information, chat information, and the number of unread messages. Implementing axios asynchronous requests using thunk middleware and Socket.io for real time communication between two user roles.</p>
+<h2 id="Function"><a href="#Function" class="headerlink" title="Function"></a>Function</h2><ul>
+<li>User registration login, logout login</li>
+<li>Improve user information after registration is completed</li>
+<li>Jump to the corresponding page according to different roles</li>
+<li>User chat function</li>
+</ul>
+<h2 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h2><blockquote>
+<p>enter recruiment_font_end</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Installing Dependencies</span></span><br><span class="line">npm install</span><br><span class="line"></span><br><span class="line"><span class="comment"># Launch Project</span></span><br><span class="line">npm run dev</span><br><span class="line"></span><br><span class="line"><span class="comment"># Package Release</span></span><br><span class="line">npm run build</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>enter server</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Installing Dependencies</span></span><br><span class="line"></span><br><span class="line">npm install</span><br><span class="line"></span><br><span class="line"><span class="comment"># enter bin</span></span><br><span class="line">node www</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+]]></content>
+      <tags>
+        <tag>React</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Stack source code analysis</title>
+    <url>/2022/07/15/Stack%20source%20code%20analysis/</url>
+    <content><![CDATA[<h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h3><p>First-in, last-out, inherited from Vector, so it is thread-safe. Legacy class, not recommended, available Deque mock battle. Essentially still implemented with arrays, the end of the array is the top of the stack. </p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Deque&lt;Integer&gt; stack = new LinkedList&lt;&gt;();</span><br><span class="line">stack.addFirst(12);</span><br><span class="line">stack.pollFirst();</span><br></pre></td></tr></table></figure>
+
+<h3 id="Source-Code"><a href="#Source-Code" class="headerlink" title="Source Code"></a>Source Code</h3><p>Source Code is easy.</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">package java.util;</span><br><span class="line"></span><br><span class="line">public</span><br><span class="line">class Stack&lt;E&gt; extends Vector&lt;E&gt; &#123;</span><br><span class="line">    /**</span><br><span class="line">     * Creates an empty Stack.</span><br><span class="line">     */</span><br><span class="line">    public <span class="function"><span class="title">Stack</span></span>() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public E push(E item) &#123;</span><br><span class="line">        // Add to the end of the array</span><br><span class="line">        addElement(item);</span><br><span class="line"></span><br><span class="line">        <span class="built_in">return</span> item;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public synchronized E <span class="function"><span class="title">pop</span></span>() &#123;</span><br><span class="line">        E       obj;</span><br><span class="line">        int     len = size();</span><br><span class="line">        // Get the last element of the array</span><br><span class="line">        obj = peek();</span><br><span class="line">        // Delete the last element of the array</span><br><span class="line">        removeElementAt(len - 1);</span><br><span class="line"></span><br><span class="line">        <span class="built_in">return</span> obj;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * Looks at the object at the top of this stack without removing it</span><br><span class="line">     * from the stack.</span><br><span class="line">     *</span><br><span class="line">     * @<span class="built_in">return</span>  the object at the top of this stack (the last item</span><br><span class="line">     *          of the &lt;tt&gt;Vector&lt;/tt&gt; object).</span><br><span class="line">     * @throws  EmptyStackException  <span class="keyword">if</span> this stack is empty.</span><br><span class="line">     */</span><br><span class="line">    public synchronized E <span class="function"><span class="title">peek</span></span>() &#123;</span><br><span class="line">        int     len = size();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (len == 0)</span><br><span class="line">            throw new EmptyStackException();</span><br><span class="line">        <span class="built_in">return</span> elementAt(len - 1);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * Tests <span class="keyword">if</span> this stack is empty.</span><br><span class="line">     *</span><br><span class="line">     * @<span class="built_in">return</span>  &lt;code&gt;<span class="literal">true</span>&lt;/code&gt; <span class="keyword">if</span> and only <span class="keyword">if</span> this stack contains</span><br><span class="line">     *          no items; &lt;code&gt;<span class="literal">false</span>&lt;/code&gt; otherwise.</span><br><span class="line">     */</span><br><span class="line">    public boolean <span class="function"><span class="title">empty</span></span>() &#123;</span><br><span class="line">        <span class="built_in">return</span> size() == 0;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">	// Returns the index position <span class="built_in">where</span> o is located</span><br><span class="line">    public synchronized int search(Object o) &#123;</span><br><span class="line">        int i = lastIndexOf(o);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (i &gt;= 0) &#123;</span><br><span class="line">            <span class="built_in">return</span> size() - i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">return</span> -1;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /** use serialVersionUID from JDK 1.0.2 <span class="keyword">for</span> interoperability */</span><br><span class="line">    private static final long serialVersionUID = 1224463164541339165L;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+</search>
