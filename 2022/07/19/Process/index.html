@@ -10,7 +10,7 @@
   
   <title>
     
-      Xingbo&#39;s blog
+      Process | Xingbo&#39;s blog
     
   </title>
   <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -180,62 +180,142 @@
 </header>
 
     <div id="article-banner">
-  <h2>Archives</h2>
-  <p class="post-date">Archives</p>
+  <h2>Process</h2>
+  <p class="post-date">2022-07-19</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
 </div>
-<main class="app-body" id="archives">
-  
-  
-  
-    <section class="time-section">
-  <h1 class="section-year">
-    2022
-  </h1>
-  <div class="section-list">
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h3><p>The code we write is just a static file stored on the hard disk, which is compiled to generate a binary executable file. When we run this executable file, it will be loaded into memory and then the CPU will execute every instruction in the program, so this running program is called a “process”.</p>
+<p>Now let’s consider a program that reads data from a hard disk file is executed, so when the instruction to read the file is run, it will read the data from the hard disk, but the read/write speed of the hard disk is very slow, so at this time, if the CPU foolishly waits for the hard disk to return the data, then the CPU utilization is very low.</p>
+<p>To draw an analogy, when you go to boil water, you will be stupid to wait for the kettle to boil? Obviously, children don’t wait around either. We can do other things before the kettle boils. When the kettle boils, we will naturally hear the “beep beep beep” sound and pour the boiled water into the cup.</p>
+<p>So, when a process wants to read data from the hard disk, the CPU does not need to block and wait for the data to be returned, but goes on to execute another process. When the hard disk data returns, the CPU receives an interrupt, so the CPU continues to run the process again.</p>
+<p>This idea of multiple, alternating processes gives the initial idea of the CPU managing multiple processes.</p>
+<p>For a system that supports multiple processes, the CPU will quickly switch from one process to another, with each process running for tens or hundreds of milliseconds in between.</p>
+<p>Although a single-core CPU can only run one process at a given instant. However, during a 1-second period, it may run multiple processes, thus creating the illusion of parallelism, which is actually concurrency.</p>
+</section>
+    <!-- Tags START -->
     
-    
-      <div class="section-list-item">
-        <a href="/2022/07/19/Process/" class="archive-title">Process</a>
-        <p class="archive-date">07-19</p>
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#Java" >
+    <span class="tag-code">Java</span>
+  </a>
+
       </div>
     
-      <div class="section-list-item">
-        <a href="/2022/07/17/HashSet%20source%20code%20analysis/" class="archive-title">HashSet source code analysis</a>
-        <p class="archive-date">07-17</p>
-      </div>
+    <!-- Tags END -->
+    <!-- NAV START -->
     
-      <div class="section-list-item">
-        <a href="/2022/07/15/Stack%20source%20code%20analysis/" class="archive-title">Stack source code analysis</a>
-        <p class="archive-date">07-15</p>
-      </div>
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
     
-      <div class="section-list-item">
-        <a href="/2022/01/12/Douban-Movie-Scraper/" class="archive-title">Douban Movie Scraper</a>
-        <p class="archive-date">01-12</p>
-      </div>
+      <a class="nav-left" href="/2022/07/17/HashSet%20source%20code%20analysis/">
+        <span class="nav-arrow">← </span>
+        
+          HashSet source code analysis
+        
+      </a>
     
-      <div class="section-list-item">
-        <a href="/2022/01/11/Real-time-chat-WebApp/" class="archive-title">Real-time chat WebApp</a>
-        <p class="archive-date">01-11</p>
-      </div>
-    
-      <div class="section-list-item">
-        <a href="/2022/01/10/Hello-world/" class="archive-title">Hello World</a>
-        <p class="archive-date">01-10</p>
-      </div>
     
   </div>
-</section>
+
+    <!-- NAV END -->
+
+    
+      <!-- Utterances START -->
+      <div id="utterances"></div>
+      <script src="https://utteranc.es/client.js"
+        repo=""
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async></script>    
+      <!-- Utterances END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
   
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Introduction"><span class="toc-nav-text">Introduction</span></a></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
 </main>
 
 <script>
   (function () {
-    var url = 'http://example.com/tags/Scarpy/index.html';
-    $('#article-banner').geopattern(url);
-    $('.header').removeClass('fixed-header');
+    var url = 'http://example.com/2022/07/19/Process/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+    // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', '/css/images/error_icon.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== '/css/images/error_icon.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
   })();
 </script>
+
+
+  <script>
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+  </script>
+
+
+
+
+
+
     <div class="scroll-top">
   <span class="arrow-icon"></span>
 </div>
