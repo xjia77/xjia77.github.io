@@ -24,6 +24,17 @@
       </tags>
   </entry>
   <entry>
+    <title>Git Tutorial</title>
+    <url>/2022/07/21/Git%20Tutorial/</url>
+    <content><![CDATA[<h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h3><p>Git is a distributed version control system.</p>
+<h3 id="Centralized-amp-Distributed"><a href="#Centralized-amp-Distributed" class="headerlink" title="Centralized &amp; Distributed"></a>Centralized &amp; Distributed</h3><p>First of all, centralized version control system, the repository is centrally stored in the central server, and when you work, you use your own computer, so you have to get the latest version from the central server first, then start working, and when you finish working, push your work to the central server. The biggest problem with centralized version control systems is that they must be networked to work.</p>
+<p>A distributed version control system has no “central server” at all. Everyone has a complete repository on their computer, so you don’t need to be connected to the Internet when you work, because the repository is on your own computer. Since there is a complete repository on each person’s computer, how can multiple people collaborate? Let’s say you change file A on your own computer, and your colleague also changes file A on his computer. At that time, you two just push your respective changes to each other, and you can see each other’s changes.</p>
+]]></content>
+      <tags>
+        <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>HashSet source code analysis</title>
     <url>/2022/07/17/HashSet%20source%20code%20analysis/</url>
     <content><![CDATA[<h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h3><p>HashSet is implemented based on HashMap and is a collection that does not allow duplicate elements.</p>
@@ -43,24 +54,18 @@
       </tags>
   </entry>
   <entry>
-    <title>Hello World</title>
-    <url>/2022/01/10/Hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+    <title>Process</title>
+    <url>/2022/07/19/Process/</url>
+    <content><![CDATA[<h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h3><p>The code we write is just a static file stored on the hard disk, which is compiled to generate a binary executable file. When we run this executable file, it will be loaded into memory and then the CPU will execute every instruction in the program, so this running program is called a “process”.</p>
+<p>Now let’s consider a program that reads data from a hard disk file is executed, so when the instruction to read the file is run, it will read the data from the hard disk, but the read/write speed of the hard disk is very slow, so at this time, if the CPU foolishly waits for the hard disk to return the data, then the CPU utilization is very low.</p>
+<p>To draw an analogy, when you go to boil water, you will be stupid to wait for the kettle to boil? Obviously, children don’t wait around either. We can do other things before the kettle boils. When the kettle boils, we will naturally hear the “beep beep beep” sound and pour the boiled water into the cup.</p>
+<p>So, when a process wants to read data from the hard disk, the CPU does not need to block and wait for the data to be returned, but goes on to execute another process. When the hard disk data returns, the CPU receives an interrupt, so the CPU continues to run the process again.</p>
+<p>This idea of multiple, alternating processes gives the initial idea of the CPU managing multiple processes.</p>
+<p>For a system that supports multiple processes, the CPU will quickly switch from one process to another, with each process running for tens or hundreds of milliseconds in between.</p>
+<p>Although a single-core CPU can only run one process at a given instant. However, during a 1-second period, it may run multiple processes, thus creating the illusion of parallelism, which is actually concurrency.</p>
 ]]></content>
       <tags>
-        <tag>Life</tag>
+        <tag>Java</tag>
       </tags>
   </entry>
   <entry>
@@ -89,18 +94,24 @@
       </tags>
   </entry>
   <entry>
-    <title>Process</title>
-    <url>/2022/07/19/Process/</url>
-    <content><![CDATA[<h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h3><p>The code we write is just a static file stored on the hard disk, which is compiled to generate a binary executable file. When we run this executable file, it will be loaded into memory and then the CPU will execute every instruction in the program, so this running program is called a “process”.</p>
-<p>Now let’s consider a program that reads data from a hard disk file is executed, so when the instruction to read the file is run, it will read the data from the hard disk, but the read/write speed of the hard disk is very slow, so at this time, if the CPU foolishly waits for the hard disk to return the data, then the CPU utilization is very low.</p>
-<p>To draw an analogy, when you go to boil water, you will be stupid to wait for the kettle to boil? Obviously, children don’t wait around either. We can do other things before the kettle boils. When the kettle boils, we will naturally hear the “beep beep beep” sound and pour the boiled water into the cup.</p>
-<p>So, when a process wants to read data from the hard disk, the CPU does not need to block and wait for the data to be returned, but goes on to execute another process. When the hard disk data returns, the CPU receives an interrupt, so the CPU continues to run the process again.</p>
-<p>This idea of multiple, alternating processes gives the initial idea of the CPU managing multiple processes.</p>
-<p>For a system that supports multiple processes, the CPU will quickly switch from one process to another, with each process running for tens or hundreds of milliseconds in between.</p>
-<p>Although a single-core CPU can only run one process at a given instant. However, during a 1-second period, it may run multiple processes, thus creating the illusion of parallelism, which is actually concurrency.</p>
+    <title>Hello World</title>
+    <url>/2022/01/10/Hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 ]]></content>
       <tags>
-        <tag>Java</tag>
+        <tag>Life</tag>
       </tags>
   </entry>
   <entry>
