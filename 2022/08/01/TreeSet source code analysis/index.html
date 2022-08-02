@@ -10,7 +10,7 @@
   
   <title>
     
-      Git Tutorial | Xingbo&#39;s blog
+      TreeSet source code analysis | Xingbo&#39;s blog
     
   </title>
   <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -180,8 +180,8 @@
 </header>
 
     <div id="article-banner">
-  <h2>Git Tutorial</h2>
-  <p class="post-date">2022-07-21</p>
+  <h2>TreeSet source code analysis</h2>
+  <p class="post-date">2022-08-01</p>
   <div class="arrow-down">
     <a href="javascript:;"></a>
   </div>
@@ -189,17 +189,21 @@
 <main class="app-body flex-box">
   <!-- Article START -->
   <article class="post-article">
-    <section class="markdown-content"><h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h3><p>Git is a distributed version control system.</p>
-<h3 id="Centralized-amp-Distributed"><a href="#Centralized-amp-Distributed" class="headerlink" title="Centralized &amp; Distributed"></a>Centralized &amp; Distributed</h3><p>First of all, centralized version control system, the repository is centrally stored in the central server, and when you work, you use your own computer, so you have to get the latest version from the central server first, then start working, and when you finish working, push your work to the central server. The biggest problem with centralized version control systems is that they must be networked to work.</p>
-<p>A distributed version control system has no “central server” at all. Everyone has a complete repository on their computer, so you don’t need to be connected to the Internet when you work, because the repository is on your own computer. Since there is a complete repository on each person’s computer, how can multiple people collaborate? Let’s say you change file A on your own computer, and your colleague also changes file A on his computer. At that time, you two just push your respective changes to each other, and you can see each other’s changes.</p>
-</section>
+    <section class="markdown-content"><h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h3><p>TreeSet is an unordered, non-repeating set, unordered means that it is impossible to traverse the TreeSet in the order of insertion, because the TreeSet will sort the inserted elements, the default is the natural sort, you can also customize the sorting rules.</p>
+<p>TreeSet is implemented through TreeMap, the key of TreeMap is the set of TreeSet does not repeat, the value of TreeMap are pointed to the same Object instance, in essence, or through the red-black tree implementation.</p>
+<h3 id="Construction-method"><a href="#Construction-method" class="headerlink" title="Construction method"></a>Construction method</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">transient</span> NavigableMap&lt;E,Object&gt; m;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Dummy value to associate with an Object in the backing Map</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Object PRESENT = <span class="keyword">new</span> Object();</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* Constructs a set backed by the specified navigable map.</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">TreeSet(NavigableMap&lt;E,Object&gt; m) &#123;</span><br><span class="line"><span class="keyword">this</span>.m = m;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">TreeSet</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="keyword">this</span>(<span class="keyword">new</span> TreeMap&lt;E,Object&gt;());</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">TreeSet</span><span class="params">(Comparator&lt;? <span class="keyword">super</span> E&gt; comparator)</span> </span>&#123;</span><br><span class="line"><span class="keyword">this</span>(<span class="keyword">new</span> TreeMap&lt;&gt;(comparator));</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">TreeSet</span><span class="params">(Collection&lt;? extends E&gt; c)</span> </span>&#123;</span><br><span class="line"><span class="keyword">this</span>();</span><br><span class="line">addAll(c);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">TreeSet</span><span class="params">(SortedSet&lt;E&gt; s)</span> </span>&#123;</span><br><span class="line"><span class="keyword">this</span>(s.comparator());</span><br><span class="line">addAll(s);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>NavigableMap is an interface, which TreeMap implements, with stronger search capabilities.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">TreeSet</span><span class="params">(Collection&lt;? extends E&gt; c)</span> </span>&#123;</span><br><span class="line"><span class="keyword">this</span>();</span><br><span class="line">addAll(c);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">TreeSet</span><span class="params">(SortedSet&lt;E&gt; s)</span> </span>&#123;</span><br><span class="line"><span class="keyword">this</span>(s.comparator());</span><br><span class="line">addAll(s);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span>  <span class="keyword">boolean</span> <span class="title">addAll</span><span class="params">(Collection&lt;? extends E&gt; c)</span> </span>&#123;</span><br><span class="line"><span class="comment">// Use linear-time version if applicable</span></span><br><span class="line"><span class="comment">// c is not null and is of type SortedSet.</span></span><br><span class="line"><span class="keyword">if</span> (m.size()==<span class="number">0</span> &amp;&amp; c.size() &gt; <span class="number">0</span> &amp;&amp;</span><br><span class="line">c <span class="keyword">instanceof</span> SortedSet &amp;&amp;</span><br><span class="line">m <span class="keyword">instanceof</span> TreeMap) &#123;</span><br><span class="line">SortedSet&lt;? extends E&gt; set = (SortedSet&lt;? extends E&gt;) c;</span><br><span class="line">TreeMap&lt;E,Object&gt; map = (TreeMap&lt;E, Object&gt;) m;</span><br><span class="line">Comparator&lt;?&gt; cc = set.comparator();</span><br><span class="line">Comparator&lt;? <span class="keyword">super</span> E&gt; mc = map.comparator();</span><br><span class="line"><span class="comment">// Inserting c into the red-black tree</span></span><br><span class="line"><span class="keyword">if</span> (cc==mc || (cc != <span class="keyword">null</span> &amp;&amp; cc.equals(mc))) &#123;</span><br><span class="line">map.addAllForTreeSet(set, PRESENT);</span><br><span class="line"><span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> <span class="keyword">super</span>.addAll(c);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Add-method"><a href="#Add-method" class="headerlink" title="Add method"></a>Add method</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">add</span><span class="params">(E e)</span> </span>&#123;</span><br><span class="line"><span class="keyword">return</span> m.put(e, PRESENT)==<span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></section>
     <!-- Tags START -->
     
       <div class="tags">
         <span>Tags:</span>
         
-  <a href="/tags#Git" >
-    <span class="tag-code">Git</span>
+  <a href="/tags#Java" >
+    <span class="tag-code">Java</span>
   </a>
 
       </div>
@@ -210,20 +214,13 @@
   <div class="nav-container">
     <!-- reverse left and right to put prev and next in a more logic postition -->
     
-      <a class="nav-left" href="/2022/07/19/Process/">
+      <a class="nav-left" href="/2022/07/21/Git%20Tutorial/">
         <span class="nav-arrow">← </span>
         
-          Process
+          Git Tutorial
         
       </a>
     
-    
-      <a class="nav-right" href="/2022/08/01/TreeSet%20source%20code%20analysis/">
-        
-          TreeSet source code analysis
-        
-        <span class="nav-arrow"> →</span>
-      </a>
     
   </div>
 
@@ -248,7 +245,7 @@
   <div class="toc-main">
     <strong class="toc-title">Catalog</strong>
     
-      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Introduction"><span class="toc-nav-text">Introduction</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Centralized-amp-Distributed"><span class="toc-nav-text">Centralized &amp; Distributed</span></a></li></ol>
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Introduction"><span class="toc-nav-text">Introduction</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Construction-method"><span class="toc-nav-text">Construction method</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Add-method"><span class="toc-nav-text">Add method</span></a></li></ol>
     
   </div>
 </aside>
@@ -258,7 +255,7 @@
 
 <script>
   (function () {
-    var url = 'http://example.com/2022/07/21/Git Tutorial/';
+    var url = 'http://example.com/2022/08/01/TreeSet source code analysis/';
     var banner = ''
     if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
       $('#article-banner').css({
