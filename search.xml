@@ -143,4 +143,23 @@
         <tag>Java</tag>
       </tags>
   </entry>
+  <entry>
+    <title>TCP 3-Way Handshake</title>
+    <url>/2022/08/02/TCP%203-Way%20Handshake/</url>
+    <content><![CDATA[<h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h3><p>The 3-Way Handshake protocol refers to the three interactions between the server and the client in the preparation phase of sending data.</p>
+<h3 id="Process"><a href="#Process" class="headerlink" title="Process"></a>Process</h3><p>Assume that A is the client and B is the server.</p>
+<p>First B is in the LISTEN state, waiting for a connection request from a client.</p>
+<p>A sends a connection request message to B with SYN=1 and ACK=0, choosing an initial serial number x.</p>
+<p>B receives the connection request message and, if it agrees to establish a connection, sends a connection confirmation message to A with SYN=1, ACK=1, and an acknowledgement number of x+1, and also selects an initial sequence number y.</p>
+<p>After receiving the connection confirmation message from B, A also sends an acknowledgement to B with acknowledgement number y+1 and sequence number x+1.</p>
+<p>After B receives A’s acknowledgement, the connection is established.</p>
+<h3 id="Why-does-the-TCP-client-have-to-send-an-acknowledgement-at-the-end-The-reason-for-the-3-Way-Handshake"><a href="#Why-does-the-TCP-client-have-to-send-an-acknowledgement-at-the-end-The-reason-for-the-3-Way-Handshake" class="headerlink" title="Why does the TCP client have to send an acknowledgement at the end? The reason for the 3-Way Handshake?"></a>Why does the TCP client have to send an acknowledgement at the end? The reason for the 3-Way Handshake?</h3><p>Prevent connection request messages that have failed from suddenly being delivered to the server again, thus generating errors.</p>
+<p>If the connection is established using 2-Way Handshake, suppose there is a scenario where the client sends the first request for a connection and does not lose it, but because it stays in the network node for too long, the TCP client is late in receiving the acknowledgement message and thinks that the server did not receive it, so it resends the message to the server, after which the client and server complete the connection after two handshakes. The client and server then complete the connection after two handshakes, transfer the data, and close the connection. At this point, the previously lagged request connection, the network is open to reach the server, the message should have been invalid, but the mechanism of two handshakes will allow the client and server to establish a connection again, which will lead to unnecessary errors and waste of resources.</p>
+<p>If 3-Way Handshake are used, even if the failed message is transmitted, the server accepts the failed message and replies with an acknowledgement, but the client does not send another acknowledgement. Since the server does not receive an acknowledgement, it knows that the client did not request the connection.</p>
+]]></content>
+      <tags>
+        <tag>TCP</tag>
+        <tag>Handshaking</tag>
+      </tags>
+  </entry>
 </search>
