@@ -162,4 +162,22 @@
         <tag>Handshaking</tag>
       </tags>
   </entry>
+  <entry>
+    <title>QR code scanning login process</title>
+    <url>/2022/08/05/QR%20code%20scanning%20login%20process/</url>
+    <content><![CDATA[<h3 id="Pending-scanning-phase"><a href="#Pending-scanning-phase" class="headerlink" title="Pending scanning phase"></a>Pending scanning phase</h3><p>This phase has nothing to do with the mobile side, but is the interaction process between the PC side and the server side.</p>
+<p>First of all, the PC side carries the device information and wants to launch the request for QR code generation from the server side, which will generate a unique QR code ID, which you can understand as UUID, and associate the QR code ID with the PC device information, which is somewhat similar to the mobile login.</p>
+<p>After the PC side receives the QR code ID, the QR code ID will be displayed in the form of QR code and wait for the mobile side to scan the code. At this time, a timer will be started on the PC side to poll for the status of the QR code. If the mobile side is not scanned, then the QR code will be invalid after a period of time.</p>
+<h3 id="Scanned-pending-confirmation-stage"><a href="#Scanned-pending-confirmation-stage" class="headerlink" title="Scanned pending confirmation stage"></a>Scanned pending confirmation stage</h3><p>This stage is the process of interaction between the mobile side and the server side.</p>
+<p>First, the mobile side scans the QR code, gets the QR code ID, and then sends the login credentials (token) and the QR code ID as parameters to the server side.</p>
+<p>After the server accepts the request, it will associate the token with the QR code ID, why do you need to associate it? If you think about it, when we use WeChat, the mobile side exits, the PC side also needs to exit. Then a one-time token will be generated, and this token will be returned to the mobile side, and the one-time token will be used as a credential for confirmation.</p>
+<p>The timer on the PC side will poll to see that the status of the QR code has changed, and will update the QR code on the PC side to scanned, please confirm.</p>
+<h3 id="Confirmed-stage"><a href="#Confirmed-stage" class="headerlink" title="Confirmed stage"></a>Confirmed stage</h3><p>This stage is the final stage of the code login, the mobile side carries the temporary token obtained in the previous step to confirm the login, and the server side will update the QR code status and generate an official token for the PC side after the proofreading is completed.</p>
+<p>The timer on the PC side will poll the QR code status for login and get the generated token to complete the login, and subsequent visits will be done based on the token.</p>
+<p>On the server side, the token, QR code, PC device information, and account information are maintained, just like on the cell phone side. </p>
+]]></content>
+      <tags>
+        <tag>QR code</tag>
+      </tags>
+  </entry>
 </search>
