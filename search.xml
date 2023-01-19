@@ -203,4 +203,21 @@
         <tag>GLSL</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Forms Web Page</title>
+    <url>/2023/01/18/Forms%20Web%20Page/</url>
+    <content><![CDATA[<h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h3><p>This project is a web page containing a user-created form using the Vue framework. It implements the following functionality:</p>
+<ul>
+<li>Display a form with inputs for each of the above fields</li>
+<li>Allows the user to complete and submit the form</li>
+<li>Does not allow the form to be submitted without completing the form</li>
+<li>Provide feedback after a successful form submission </li>
+</ul>
+<h3 id="Running-instructions"><a href="#Running-instructions" class="headerlink" title="Running instructions"></a>Running instructions</h3><p>Locate the form directory, type npm install and npm run serve in terminal, wait for building to complete, and click on the generated localhost link.</p>
+<h3 id="Project-Show"><a href="#Project-Show" class="headerlink" title="Project Show"></a>Project Show</h3><p><a href="https://github.com/xjia77/Forms-Web-Page">https://github.com/xjia77/Forms-Web-Page</a></p>
+]]></content>
+      <tags>
+        <tag>Vue</tag>
+      </tags>
+  </entry>
 </search>
